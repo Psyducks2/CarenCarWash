@@ -3,6 +3,7 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import SocialProof from './components/SocialProof';
 import Services from './components/Services';
+import Testimonials from './components/Testimonials';
 import CtaSection from './components/CtaSection';
 import Location from './components/Location';
 import Footer from './components/Footer';
@@ -44,6 +45,7 @@ function App() {
         <Hero whatsappLink={whatsappLink} />
         <SocialProof />
         <Services whatsappLink={whatsappLink} />
+        <Testimonials />
         <CtaSection whatsappLink={whatsappLink} />
         <Location whatsappLink={whatsappLink} />
       </main>

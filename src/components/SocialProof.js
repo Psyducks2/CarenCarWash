@@ -1,30 +1,32 @@
 import React from 'react';
 
+const METRICS = [
+  { icon: 'star', value: '4.9★', label: 'Avaliação Média', sub: '347 avaliações' },
+  { icon: 'group', value: '2.500+', label: 'Clientes Felizes', sub: 'Desde 2019' },
+  { icon: 'schedule', value: '2h', label: 'Resposta Garantida', sub: 'Seg–Sáb · 08h–17h' },
+  { icon: 'verified', value: '100%', label: 'Garantia Total', sub: 'Ou refaremos' },
+];
+
 export default function SocialProof() {
   return (
-    <section className="py-12 bg-surface-container-highest border-b border-outline-variant/20">
+    <section className="bg-surface-container-lowest border-b border-outline-variant/10">
       <div className="max-w-7xl mx-auto px-4 md:px-10">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
-          <div className="space-y-2">
-            <div className="text-3xl font-display-lg text-primary-container">4.9★</div>
-            <p className="text-on-surface-variant text-sm">Avaliação Média</p>
-            <p className="text-xs text-on-surface-variant">347 avaliações</p>
-          </div>
-          <div className="space-y-2">
-            <div className="text-3xl font-display-lg text-secondary">2.500+</div>
-            <p className="text-on-surface-variant text-sm">Clientes Felizes</p>
-            <p className="text-xs text-on-surface-variant">Desde 2019</p>
-          </div>
-          <div className="space-y-2">
-            <div className="text-3xl font-display-lg text-primary-container">48h</div>
-            <p className="text-on-surface-variant text-sm">Agendamento</p>
-            <p className="text-xs text-on-surface-variant">Resposta garantida</p>
-          </div>
-          <div className="space-y-2">
-            <div className="text-3xl font-display-lg text-secondary">100%</div>
-            <p className="text-on-surface-variant text-sm">Garantia</p>
-            <p className="text-xs text-on-surface-variant">ou dinheiro de volta</p>
-          </div>
+        <div className="grid grid-cols-2 md:grid-cols-4">
+          {METRICS.map(({ icon, value, label, sub }, i) => (
+            <div
+              key={i}
+              className={`flex items-center gap-3 py-5 px-4 ${i < METRICS.length - 1 ? 'border-r border-outline-variant/10' : ''}`}
+            >
+              <div className="w-8 h-8 flex items-center justify-center bg-primary-container/10 border border-primary-container/15 flex-shrink-0">
+                <span className="material-symbols-outlined text-primary-container text-base">{icon}</span>
+              </div>
+              <div>
+                <div className="font-font-bebas text-xl text-primary-container leading-none">{value}</div>
+                <div className="font-font-mono-jb text-[8px] text-on-surface-variant uppercase tracking-wider">{label}</div>
+                <div className="font-font-mono-jb text-[7px] text-on-surface-variant/40">{sub}</div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

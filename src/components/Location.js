@@ -1,12 +1,22 @@
 import React from 'react';
 
+const HOURS = [
+  { day: 'Seg – Sex', time: '08:00 – 17:00', closed: false },
+  { day: 'Sábado', time: '08:00 – 16:00', closed: false },
+  { day: 'Domingo', time: 'Fechado', closed: true },
+];
+
 export default function Location({ whatsappLink }) {
   return (
     <section className="py-20" id="localizacao">
       <div className="max-w-7xl mx-auto px-4 md:px-10">
-        <div className="flex flex-col lg:flex-row gap-12 bg-surface-container rounded-2xl overflow-hidden border border-outline-variant/20 shadow-2xl">
-          <div className="lg:w-2/3 h-[400px] lg:h-auto relative bg-surface-container-highest">
-            <div className="absolute inset-0 opacity-80 grayscale">
+        <div className="mb-12">
+          <div className="font-font-mono-jb text-[9px] text-primary-container/60 uppercase tracking-widest mb-1">// Onde estamos</div>
+          <h2 className="font-font-bebas text-4xl text-on-background">Onde Estamos</h2>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 border border-outline-variant/10 overflow-hidden">
+          <div className="h-[360px] lg:h-auto relative">
+            <div className="absolute inset-0 grayscale opacity-70">
               <iframe
                 className="border-0 w-full h-full"
                 frameBorder="0"
@@ -15,38 +25,36 @@ export default function Location({ whatsappLink }) {
               ></iframe>
             </div>
           </div>
-          <div className="lg:w-1/3 p-8 space-y-8 flex flex-col justify-center">
-            <div className="space-y-2">
-              <h3 className="font-headline-lg text-headline-lg text-on-background">Onde Estamos</h3>
-              <div className="flex items-start gap-2 text-on-surface-variant font-body-md">
-                <span className="material-symbols-outlined text-primary-container">location_on</span>
-                <p>Rua General Carneiro, 204<br />São Francisco, Curitiba - PR</p>
+          <div className="p-8 space-y-8 bg-surface-container">
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 flex items-center justify-center bg-primary-container/10 border border-primary-container/15 flex-shrink-0 mt-0.5">
+                <span className="material-symbols-outlined text-primary-container text-base">location_on</span>
+              </div>
+              <div>
+                <div className="font-font-mono-jb text-[8px] text-primary-container/60 uppercase tracking-widest mb-1">Endereço</div>
+                <p className="font-body-md text-[13px] text-on-surface-variant">
+                  Rua General Carneiro, 204<br />São Francisco — Curitiba, PR
+                </p>
               </div>
             </div>
-            <div className="space-y-4">
-              <h4 className="font-label-bold text-label-bold text-on-surface uppercase tracking-widest border-b border-outline-variant pb-2">Horário de Funcionamento</h4>
-              <div className="space-y-2 font-body-md text-on-surface-variant">
-                <div className="flex justify-between items-center">
-                  <span>Segunda - Sexta</span>
-                  <span className="text-on-surface font-bold">08:00 às 17:00</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span>Sábado</span>
-                  <span className="text-on-surface font-bold">08:00 às 16:00</span>
-                </div>
-                <div className="flex justify-between items-center text-error">
-                  <span>Domingo</span>
-                  <span className="font-bold">Fechado</span>
-                </div>
+            <div>
+              <div className="font-font-mono-jb text-[8px] text-primary-container/60 uppercase tracking-widest mb-3">Horários</div>
+              <div className="space-y-0">
+                {HOURS.map(({ day, time, closed }) => (
+                  <div key={day} className="flex justify-between items-center py-2.5 border-b border-outline-variant/10 last:border-0">
+                    <span className="font-font-mono-jb text-[10px] text-on-surface-variant">{day}</span>
+                    <span className={`font-font-mono-jb text-[10px] font-bold ${closed ? 'text-error' : 'text-on-surface'}`}>{time}</span>
+                  </div>
+                ))}
               </div>
             </div>
             <a
               href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full bg-primary-container text-on-primary-container py-3 rounded-xl font-label-bold text-label-bold text-center hover:brightness-110 transition-all flex items-center justify-center gap-2"
+              className="flex items-center justify-center gap-2 w-full bg-primary-container text-on-primary-container py-3 font-font-mono-jb text-[10px] uppercase tracking-wider hover:brightness-110 transition-all"
             >
-              <span className="material-symbols-outlined">directions</span>
+              <span className="material-symbols-outlined text-base">directions</span>
               Como Chegar
             </a>
           </div>

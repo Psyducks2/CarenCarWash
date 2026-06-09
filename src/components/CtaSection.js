@@ -2,19 +2,29 @@ import React from 'react';
 
 export default function CtaSection({ whatsappLink }) {
   return (
-    <section className="py-20 bg-gradient-to-r from-primary-container/10 via-secondary/5 to-primary-container/10 border-y border-outline-variant/20">
-      <div className="max-w-4xl mx-auto px-4 md:px-10 text-center space-y-6">
-        <h2 className="font-headline-lg text-headline-lg text-on-background">Não Deixe seu Carro Esperar</h2>
-        <p className="text-on-surface-variant text-body-lg">Horários limitados para hoje. Agende agora e ganhe 10% de desconto na próxima lavagem.</p>
-        <a
-          href={whatsappLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center justify-center gap-2 bg-primary-container text-on-primary-container px-12 py-3 font-label-bold text-label-bold rounded-xl hover:brightness-110 transition-all shadow-xl hover:shadow-2xl"
-        >
-          <span className="material-symbols-outlined">whatsapp</span>
-          Agendar Agora no WhatsApp
-        </a>
+    <section className="py-20 border-y border-outline-variant/10 bg-surface-container-lowest">
+      <div className="max-w-7xl mx-auto px-4 md:px-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div>
+            <h2 className="font-font-bebas text-5xl md:text-6xl leading-none text-on-background mb-3">
+              AGENDE AGORA.<br /><span className="text-primary-container">VAGAS LIMITADAS.</span>
+            </h2>
+            <p className="font-font-mono-jb text-[10px] text-on-surface-variant uppercase tracking-widest">
+              Resposta via WhatsApp em até 2 horas · Seg–Sáb 08h–17h
+            </p>
+          </div>
+          <div className="flex md:justify-end">
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 bg-primary-container text-on-primary-container px-10 py-4 font-font-mono-jb text-[11px] uppercase tracking-wider hover:brightness-110 transition-all shadow-xl"
+            >
+              <span className="material-symbols-outlined text-xl">whatsapp</span>
+              Agendar no WhatsApp
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   );

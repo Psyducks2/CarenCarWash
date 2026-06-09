@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet"/>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:#050507;color:#e2e2e8;font-family:'Inter',sans-serif;font-size:13px;}
+
+  .page-wrap{max-width:900px;margin:0 auto;padding:20px;display:flex;flex-direction:column;gap:4px;}
+
+  .section-label{font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,215,0,0.5);letter-spacing:2px;text-transform:uppercase;padding:4px 8px;margin-bottom:0;}
+
+  .section-block{border:1px solid rgba(255,215,0,0.1);border-radius:4px;overflow:hidden;position:relative;}
+  .section-block::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,215,0,0.15),transparent);}
+
+  /* Grid overlay */
+  .grid-bg{background-image:linear-gradient(rgba(255,215,0,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.025) 1px,transparent 1px);background-size:24px 24px;}
+
+  /* ── HEADER ── */
+  .s-header{background:#0a0a0c;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;}
+  .logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:#fff;}
+  .logo span{color:#ffd700;}
+  .nav-links{display:flex;gap:20px;}
+  .nav-links a{color:rgba(255,255,255,0.4);font-size:10px;letter-spacing:1px;text-transform:uppercase;font-family:'JetBrains Mono',monospace;text-decoration:none;}
+  .cta-nav{background:#ffd700;color:#000;padding:6px 14px;font-size:10px;font-weight:700;font-family:'JetBrains Mono',monospace;letter-spacing:0.5px;}
+
+  /* ── HERO ── */
+  .s-hero{background:#0a0a0c;padding:48px 32px 40px;display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;}
+  .hero-left{}
+  .hero-badge{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(74,225,118,0.3);padding:4px 10px;margin-bottom:16px;}
+  .hero-badge-dot{width:6px;height:6px;background:#4ae176;border-radius:50%;}
+  .hero-badge span{color:#4ae176;font-size:9px;font-family:'JetBrains Mono',monospace;letter-spacing:1px;text-transform:uppercase;}
+  .hero-h1{font-family:'Bebas Neue',sans-serif;font-size:58px;line-height:0.95;letter-spacing:1px;color:#fff;margin-bottom:8px;}
+  .hero-h1 em{color:#ffd700;font-style:normal;}
+  .hero-sub{color:rgba(255,255,255,0.45);font-size:12px;line-height:1.6;margin-bottom:24px;max-width:280px;}
+  .hero-ctas{display:flex;gap:8px;flex-wrap:wrap;}
+  .btn-primary{background:#ffd700;color:#000;padding:10px 20px;font-size:10px;font-weight:700;font-family:'JetBrains Mono',monospace;letter-spacing:0.5px;display:flex;align-items:center;gap:6px;}
+  .btn-ghost{border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.5);padding:10px 16px;font-size:10px;font-family:'JetBrains Mono',monospace;letter-spacing:0.5px;}
+  .hero-stats{display:flex;flex-direction:column;gap:12px;padding:20px;background:rgba(255,215,0,0.04);border:1px solid rgba(255,215,0,0.1);}
+  .stat-row{display:flex;align-items:center;gap:12px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,0.05);}
+  .stat-row:last-child{border:none;padding:0;}
+  .stat-icon{width:28px;height:28px;background:rgba(255,215,0,0.1);display:flex;align-items:center;justify-content:center;font-size:14px;}
+  .stat-val{font-family:'Bebas Neue',sans-serif;font-size:22px;color:#ffd700;line-height:1;}
+  .stat-desc{font-size:9px;color:rgba(255,255,255,0.4);font-family:'JetBrains Mono',monospace;line-height:1.4;}
+
+  /* ── SOCIAL PROOF BAR ── */
+  .s-proof{background:#0d0d10;padding:16px 32px;display:grid;grid-template-columns:repeat(4,1fr);gap:0;}
+  .proof-item{padding:12px 16px;border-right:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;gap:10px;}
+  .proof-item:last-child{border:none;}
+  .proof-icon{width:24px;height:24px;background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.15);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;}
+  .proof-val{font-family:'Bebas Neue',sans-serif;font-size:18px;color:#ffd700;line-height:1;}
+  .proof-label{font-size:8px;color:rgba(255,255,255,0.35);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.5px;}
+
+  /* ── SERVICES ── */
+  .s-services{background:#0a0a0c;padding:40px 32px;}
+  .section-heading{margin-bottom:24px;}
+  .section-heading h2{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:1px;color:#fff;}
+  .section-heading .eyebrow{font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,215,0,0.6);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;}
+  .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+  .service-card{border:1px solid rgba(255,255,255,0.07);background:#0d0d10;overflow:hidden;}
+  .service-card.featured{border-color:rgba(255,215,0,0.25);}
+  .service-img{height:90px;background:#1a1a1e;position:relative;display:flex;align-items:center;justify-content:center;}
+  .service-img-fill{width:100%;height:100%;object-fit:cover;opacity:0.7;}
+  .service-badge{position:absolute;top:6px;right:6px;background:#ffd700;color:#000;font-size:7px;font-weight:700;padding:2px 6px;font-family:'JetBrains Mono',monospace;letter-spacing:0.5px;}
+  .service-body{padding:12px;}
+  .service-title{font-family:'Bebas Neue',sans-serif;font-size:18px;color:#fff;letter-spacing:0.5px;margin-bottom:4px;}
+  .service-desc{font-size:9px;color:rgba(255,255,255,0.4);line-height:1.5;margin-bottom:8px;}
+  .service-features{display:flex;flex-direction:column;gap:3px;margin-bottom:10px;}
+  .service-feature{display:flex;align-items:center;gap:4px;font-size:9px;color:rgba(255,255,255,0.5);}
+  .service-feature::before{content:'›';color:#4ae176;font-weight:700;}
+  .service-btn{width:100%;background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.2);color:#ffd700;font-size:9px;font-family:'JetBrains Mono',monospace;letter-spacing:0.5px;padding:7px;text-align:center;}
+  .service-card.featured .service-btn{background:#ffd700;color:#000;}
+
+  /* ── TESTIMONIALS ── */
+  .s-testimonials{background:#080809;padding:40px 32px;}
+  .testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:24px;}
+  .testimonial-card{border:1px solid rgba(255,255,255,0.06);padding:16px;position:relative;}
+  .testimonial-card::before{content:'"';position:absolute;top:8px;right:12px;font-family:'Bebas Neue',sans-serif;font-size:48px;color:rgba(255,215,0,0.08);line-height:1;}
+  .t-stars{color:#ffd700;font-size:11px;margin-bottom:8px;letter-spacing:1px;}
+  .t-text{font-size:10px;color:rgba(255,255,255,0.5);line-height:1.6;margin-bottom:12px;font-style:italic;}
+  .t-author{display:flex;align-items:center;gap:8px;}
+  .t-avatar{width:24px;height:24px;background:rgba(255,215,0,0.1);border:1px solid rgba(255,215,0,0.2);display:flex;align-items:center;justify-content:center;font-size:10px;font-family:'Bebas Neue',sans-serif;color:#ffd700;}
+  .t-name{font-size:9px;font-family:'JetBrains Mono',monospace;color:rgba(255,255,255,0.6);}
+  .t-role{font-size:8px;color:rgba(255,255,255,0.25);}
+
+  /* ── CTA SECTION ── */
+  .s-cta{background:linear-gradient(135deg,#0d0c08 0%,#111008 50%,#0a0c0a 100%);padding:40px 32px;border-top:1px solid rgba(255,215,0,0.1);border-bottom:1px solid rgba(255,215,0,0.1);}
+  .cta-inner{display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;}
+  .cta-title{font-family:'Bebas Neue',sans-serif;font-size:40px;line-height:0.95;color:#fff;margin-bottom:6px;}
+  .cta-title em{color:#ffd700;font-style:normal;}
+  .cta-sub{font-size:10px;color:rgba(255,255,255,0.4);font-family:'JetBrains Mono',monospace;letter-spacing:0.5px;}
+  .cta-action{display:flex;flex-direction:column;align-items:flex-end;gap:8px;}
+  .btn-cta-big{background:#ffd700;color:#000;padding:14px 24px;font-size:11px;font-weight:700;font-family:'JetBrains Mono',monospace;letter-spacing:0.5px;display:flex;align-items:center;gap:8px;white-space:nowrap;}
+  .cta-note{font-size:8px;color:rgba(255,255,255,0.25);font-family:'JetBrains Mono',monospace;text-align:right;}
+
+  /* ── LOCATION ── */
+  .s-location{background:#0a0a0c;padding:40px 32px;}
+  .location-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;}
+  .map-placeholder{background:#0d0d10;border:1px solid rgba(255,255,255,0.07);height:160px;display:flex;align-items:center;justify-content:center;}
+  .map-placeholder span{font-size:9px;color:rgba(255,255,255,0.2);font-family:'JetBrains Mono',monospace;letter-spacing:1px;}
+  .location-info{border:1px solid rgba(255,255,255,0.07);padding:16px;display:flex;flex-direction:column;gap:12px;}
+  .info-row{display:flex;gap:8px;}
+  .info-icon{width:20px;height:20px;background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.15);display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;margin-top:1px;}
+  .info-label{font-size:8px;font-family:'JetBrains Mono',monospace;color:rgba(255,215,0,0.6);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;}
+  .info-val{font-size:10px;color:rgba(255,255,255,0.6);line-height:1.4;}
+  .hours-row{display:flex;justify-content:space-between;font-size:9px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+  .hours-day{color:rgba(255,255,255,0.35);font-family:'JetBrains Mono',monospace;}
+  .hours-time{color:rgba(255,255,255,0.6);font-family:'JetBrains Mono',monospace;font-weight:700;}
+  .hours-time.closed{color:rgba(255,90,90,0.6);}
+  .btn-directions{background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.2);color:#ffd700;font-size:9px;font-family:'JetBrains Mono',monospace;padding:8px;text-align:center;display:flex;align-items:center;justify-content:center;gap:4px;margin-top:4px;}
+
+  /* ── FOOTER ── */
+  .s-footer{background:#050507;padding:20px 32px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,0.04);}
+  .footer-logo{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:rgba(255,255,255,0.3);}
+  .footer-logo em{color:rgba(255,215,0,0.4);font-style:normal;}
+  .footer-links{display:flex;gap:16px;}
+  .footer-links a{font-size:8px;color:rgba(255,255,255,0.2);font-family:'JetBrains Mono',monospace;text-decoration:none;letter-spacing:0.5px;}
+  .footer-copy{font-size:8px;color:rgba(255,255,255,0.15);font-family:'JetBrains Mono',monospace;}
+
+  /* ── TITLE BAR ── */
+  .design-title{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,215,0,0.7);letter-spacing:2px;text-align:center;padding:10px;border-bottom:1px solid rgba(255,215,0,0.1);background:#050507;text-transform:uppercase;}
+
+  /* icon placeholder */
+  .ic{font-size:11px;opacity:0.7;}
+</style>
+</head>
+<body>
+
+<div class="design-title">Caren Car Wash — Redesign Completo · Brutalist Minimal · Abordagem 2</div>
+
+<div class="page-wrap">
+
+  <!-- HEADER -->
+  <div class="section-label">01 · Header</div>
+  <div class="section-block">
+    <div class="s-header grid-bg">
+      <div class="logo">CAREN<span>.</span></div>
+      <div class="nav-links">
+        <a href="#">Início</a>
+        <a href="#">Serviços</a>
+        <a href="#">Localização</a>
+        <a href="#">Contato</a>
+      </div>
+      <div class="cta-nav">Agendar Agora</div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="section-label">02 · Hero</div>
+  <div class="section-block">
+    <div class="s-hero grid-bg">
+      <div class="hero-left">
+        <div class="hero-badge">
+          <div class="hero-badge-dot"></div>
+          <span>Vagas disponíveis hoje</span>
+        </div>
+        <div class="hero-h1">O cuidado<br/>que seu<br/>carro <em>merece.</em></div>
+        <div class="hero-sub">Especialistas em detalhamento premium. Snow foam, pincelamento técnico e proteção UV desde 2019.</div>
+        <div class="hero-ctas">
+          <div class="btn-primary">
+            <span class="ic">◎</span> Agendar via WhatsApp
+          </div>
+          <div class="btn-ghost">Ver Serviços</div>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-row">
+          <div class="stat-icon">★</div>
+          <div>
+            <div class="stat-val">4.9</div>
+            <div class="stat-desc">Avaliação média<br/>347 avaliações no Google</div>
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-icon">♦</div>
+          <div>
+            <div class="stat-val">2.500+</div>
+            <div class="stat-desc">Clientes atendidos<br/>desde 2019</div>
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-icon">◈</div>
+          <div>
+            <div class="stat-val">100%</div>
+            <div class="stat-desc">Garantia de satisfação<br/>ou refaremos sem custo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SOCIAL PROOF BAR -->
+  <div class="section-label">03 · Prova Social (barra)</div>
+  <div class="section-block">
+    <div class="s-proof">
+      <div class="proof-item">
+        <div class="proof-icon">★</div>
+        <div>
+          <div class="proof-val">4.9★</div>
+          <div class="proof-label">Avaliação Google</div>
+        </div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-icon">♦</div>
+        <div>
+          <div class="proof-val">2.500+</div>
+          <div class="proof-label">Clientes felizes</div>
+        </div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-icon">◉</div>
+        <div>
+          <div class="proof-val">2h</div>
+          <div class="proof-label">Resposta garantida</div>
+        </div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-icon">◈</div>
+        <div>
+          <div class="proof-val">100%</div>
+          <div class="proof-label">Garantia total</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <div class="section-label">04 · Serviços</div>
+  <div class="section-block">
+    <div class="s-services">
+      <div class="section-heading">
+        <div class="eyebrow">// Serviços</div>
+        <h2>Escolha seu pacote</h2>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-img" style="background:#141414;">
+            <span style="font-size:28px;opacity:0.3;color:#ffd700;">◎</span>
+          </div>
+          <div class="service-body">
+            <div class="service-title">Lavagem Externa</div>
+            <div class="service-desc">Snow foam premium, pincelamento técnico de frestas, limpeza de rodas.</div>
+            <div class="service-features">
+              <div class="service-feature">Snow Foam Ativo</div>
+              <div class="service-feature">Pincelamento Técnico</div>
+              <div class="service-feature">Rodas & Caixas</div>
+            </div>
+            <div class="service-btn">Agendar Este Serviço</div>
+          </div>
+        </div>
+        <div class="service-card featured">
+          <div class="service-img" style="background:#141410;">
+            <span style="font-size:28px;opacity:0.4;color:#ffd700;">◈</span>
+            <div class="service-badge">Mais Procurado</div>
+          </div>
+          <div class="service-body">
+            <div class="service-title">Higienização Interna</div>
+            <div class="service-desc">Aspiração profunda, condicionamento de plásticos e limpeza de couro com proteção UV.</div>
+            <div class="service-features">
+              <div class="service-feature">Alta Sucção</div>
+              <div class="service-feature">Condicionamento UV</div>
+              <div class="service-feature">Limpeza de Couro</div>
+            </div>
+            <div class="service-btn">Agendar Agora</div>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="service-img" style="background:#141414;">
+            <span style="font-size:28px;opacity:0.3;color:#4ae176;">◉</span>
+          </div>
+          <div class="service-body">
+            <div class="service-title">Estética para Motos</div>
+            <div class="service-desc">Desengraxante biodegradável, lavagem de motor e cera em spray protetora.</div>
+            <div class="service-features">
+              <div class="service-feature">Lavagem Técnica</div>
+              <div class="service-feature">Limpeza de Corrente</div>
+              <div class="service-feature">Cera Protetora</div>
+            </div>
+            <div class="service-btn">Agendar Este Serviço</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TESTIMONIALS (NEW) -->
+  <div class="section-label">05 · Depoimentos (novo)</div>
+  <div class="section-block">
+    <div class="s-testimonials grid-bg">
+      <div class="section-heading">
+        <div class="eyebrow">// O que dizem nossos clientes</div>
+        <h2>Aprovado por quem importa</h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="t-stars">★★★★★</div>
+          <div class="t-text">"Meu carro saiu como novo. O pessoal é cuidadoso, pontual e entregou antes do previsto. Já indiquei pra vários amigos."</div>
+          <div class="t-author">
+            <div class="t-avatar">MR</div>
+            <div>
+              <div class="t-name">Marcos R.</div>
+              <div class="t-role">Cliente desde 2021</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="t-stars">★★★★★</div>
+          <div class="t-text">"Higienização interna impecável. Tiraram manchas que achei que eram permanentes. Atendimento via WhatsApp rápido demais."</div>
+          <div class="t-author">
+            <div class="t-avatar">AC</div>
+            <div>
+              <div class="t-name">Ana C.</div>
+              <div class="t-role">Avaliação Google</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="t-stars">★★★★★</div>
+          <div class="t-text">"Levo minha moto todo mês. Serviço especializado, não é qualquer lugar que faz direito. Preço justo pelo resultado."</div>
+          <div class="t-author">
+            <div class="t-avatar">FP</div>
+            <div>
+              <div class="t-name">Felipe P.</div>
+              <div class="t-role">Cliente fidelizado</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA SECTION -->
+  <div class="section-label">06 · CTA Principal</div>
+  <div class="section-block">
+    <div class="s-cta">
+      <div class="cta-inner">
+        <div>
+          <div class="cta-title">Agende agora.<br/><em>Vagas limitadas.</em></div>
+          <div class="cta-sub">Resposta via WhatsApp em até 2 horas · Seg–Sáb 08h–17h</div>
+        </div>
+        <div class="cta-action">
+          <div class="btn-cta-big">
+            <span class="ic">◎</span> Agendar no WhatsApp
+          </div>
+          <div class="cta-note">Ganhe 10% na próxima lavagem</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOCATION -->
+  <div class="section-label">07 · Localização</div>
+  <div class="section-block">
+    <div class="s-location">
+      <div class="section-heading">
+        <div class="eyebrow">// Onde estamos</div>
+        <h2>Onde Estamos</h2>
+      </div>
+      <div class="location-grid">
+        <div class="map-placeholder">
+          <span>[ Google Maps — Rua General Carneiro, 204 ]</span>
+        </div>
+        <div class="location-info">
+          <div class="info-row">
+            <div class="info-icon">◎</div>
+            <div>
+              <div class="info-label">Endereço</div>
+              <div class="info-val">Rua General Carneiro, 204<br/>São Francisco — Curitiba, PR</div>
+            </div>
+          </div>
+          <div>
+            <div class="info-label" style="font-size:8px;font-family:'JetBrains Mono',monospace;color:rgba(255,215,0,0.6);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">Horários</div>
+            <div class="hours-row"><span class="hours-day">Seg – Sex</span><span class="hours-time">08:00 – 17:00</span></div>
+            <div class="hours-row"><span class="hours-day">Sábado</span><span class="hours-time">08:00 – 16:00</span></div>
+            <div class="hours-row"><span class="hours-day">Domingo</span><span class="hours-time closed">Fechado</span></div>
+          </div>
+          <div class="btn-directions">◎ Como Chegar</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="section-label">08 · Footer</div>
+  <div class="section-block">
+    <div class="s-footer">
+      <div class="footer-logo">CAREN<em>.</em></div>
+      <div class="footer-copy">© 2024 Caren Car Wash · Curitiba, PR</div>
+      <div class="footer-links">
+        <a href="#">Instagram</a>
+        <a href="#">Privacidade</a>
+        <a href="#">Termos</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
