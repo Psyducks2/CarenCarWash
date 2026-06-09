@@ -26,7 +26,7 @@ export default function Testimonials() {
     <section className="py-20 dot-grid" id="depoimentos">
       <div className="max-w-7xl mx-auto px-4 md:px-10">
         <div className="mb-12">
-          <div className="font-font-mono-jb text-[9px] text-primary-container/60 uppercase tracking-widest mb-1">// O que dizem nossos clientes</div>
+          <div className="font-font-mono-jb text-[9px] text-primary-container/60 uppercase tracking-widest mb-1">{'// O que dizem nossos clientes'}</div>
           <h2 className="font-font-bebas text-4xl text-on-background">Aprovado por quem importa</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

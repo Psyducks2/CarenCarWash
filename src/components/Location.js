@@ -11,7 +11,7 @@ export default function Location({ whatsappLink }) {
     <section className="py-20" id="localizacao">
       <div className="max-w-7xl mx-auto px-4 md:px-10">
         <div className="mb-12">
-          <div className="font-font-mono-jb text-[9px] text-primary-container/60 uppercase tracking-widest mb-1">// Onde estamos</div>
+          <div className="font-font-mono-jb text-[9px] text-primary-container/60 uppercase tracking-widest mb-1">{'// Onde estamos'}</div>
           <h2 className="font-font-bebas text-4xl text-on-background">Onde Estamos</h2>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 border border-outline-variant/10 overflow-hidden">
